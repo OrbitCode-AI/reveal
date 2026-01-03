@@ -1,10 +1,16 @@
-import { useEffect, useRef } from 'preact/hooks'
+import { useEffect, useRef } from 'react'
 import Reveal from 'reveal.js'
 import 'reveal.js/dist/reveal.css'
 import 'reveal.js/dist/theme/black.css'
 
-export default function Slide({ children, isNested, isVertical }) {
-  const deckRef = useRef(null)
+interface SlideProps {
+  children: React.ReactNode;
+  isNested?: boolean;
+  isVertical?: boolean;
+}
+
+export default function Slide({ children, isNested, isVertical }: SlideProps) {
+  const deckRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     if (isNested || !deckRef.current) return

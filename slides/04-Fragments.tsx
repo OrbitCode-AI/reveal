@@ -1,6 +1,6 @@
 import Slide from './Slide'
 
-export default function FragmentsSlide({ isNested }) {
+export default function FragmentsSlide({ isNested }: { isNested?: boolean }) {
   return (
     <Slide isNested={isNested}>
       <section>

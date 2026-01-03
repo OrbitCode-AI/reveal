@@ -13,9 +13,12 @@ import BackgroundsSlide from './slides/05-Backgrounds'
 import FitTextSlide from './slides/06-FitText'
 import ClosingSlide from './slides/07-Closing'
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type RevealInstance = any;
+
 export default function App() {
-  const deckRef = useRef(null)
-  const revealRef = useRef(null)
+  const deckRef = useRef<HTMLDivElement>(null)
+  const revealRef = useRef<RevealInstance>(null)
   const ignoreNextChange = useRef(false)
 
   // Slide state: h=horizontal index, v=vertical index, f=fragment index
@@ -41,7 +44,7 @@ export default function App() {
     revealRef.current = deck
 
     // Sync Reveal.js state changes to React state
-    const onSlideChanged = (event) => {
+    const onSlideChanged = (_event: unknown) => {
       if (ignoreNextChange.current) {
         ignoreNextChange.current = false
         return

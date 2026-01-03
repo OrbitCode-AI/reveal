@@ -1,6 +1,6 @@
 import Slide from './Slide'
 
-export default function ClosingSlide({ isNested }) {
+export default function ClosingSlide({ isNested }: { isNested?: boolean }) {
   return (
     <Slide isNested={isNested}>
       <section data-background-gradient="radial-gradient(circle at center, #1a1a2e 0%, #0a0a14 100%)">

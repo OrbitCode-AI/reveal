@@ -1,6 +1,6 @@
 import Slide from './Slide'
 
-export default function TitleSlide({ isNested }) {
+export default function TitleSlide({ isNested }: { isNested?: boolean }) {
   return (
     <Slide isNested={isNested}>
       <section data-background-gradient="linear-gradient(to bottom, #191919, #000)">

@@ -21,7 +21,7 @@ function TitleSlide() {
   )
 }`
 
-export default function CodeSlide({ isNested }) {
+export default function CodeSlide({ isNested }: { isNested?: boolean }) {
   return (
     <Slide isNested={isNested} isVertical>
       <section data-transition="concave" data-background="#0d1117">

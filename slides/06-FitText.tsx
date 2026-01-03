@@ -1,6 +1,6 @@
 import Slide from './Slide'
 
-export default function FitTextSlide({ isNested }) {
+export default function FitTextSlide({ isNested }: { isNested?: boolean }) {
   return (
     <Slide isNested={isNested}>
       <section data-transition="zoom">

@@ -1,6 +1,6 @@
 import Slide from './Slide'
 
-export default function BackgroundsSlide({ isNested }) {
+export default function BackgroundsSlide({ isNested }: { isNested?: boolean }) {
   return (
     <Slide isNested={isNested} isVertical>
       <section data-background="#4d7e65">

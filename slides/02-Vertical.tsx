@@ -1,6 +1,6 @@
 import Slide from './Slide'
 
-export default function VerticalSlides({ isNested }) {
+export default function VerticalSlides({ isNested }: { isNested?: boolean }) {
   return (
     <Slide isNested={isNested} isVertical>
       <section data-transition="convex">
