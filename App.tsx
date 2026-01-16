@@ -65,7 +65,16 @@ export default function App() {
 
     deck.initialize()
 
+    // Recalculate layout when container resizes (fixes tiny scale on HMR)
+    const resizeObserver = new ResizeObserver(() => {
+      if (deck.isReady()) {
+        (deck as RevealInstance).layout()
+      }
+    })
+    resizeObserver.observe(deckRef.current)
+
     return () => {
+      resizeObserver.disconnect()
       try { deck.destroy() } catch(e) {}
     }
   }, [])

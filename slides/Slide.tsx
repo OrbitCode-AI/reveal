@@ -15,7 +15,8 @@ export default function Slide({ children, isNested, isVertical }: SlideProps) {
 
   useEffect(() => {
     if (isNested || !deckRef.current) return
-    const deck = new Reveal(deckRef.current, {
+    const container = deckRef.current
+    const deck = new Reveal(container, {
       controls: true,
       keyboard: true,
       hash: false,
@@ -24,7 +25,20 @@ export default function Slide({ children, isNested, isVertical }: SlideProps) {
       transition: 'slide'
     });
     deck.initialize()
-    return () => { try { deck.destroy(); } catch(e) {} }
+
+    // Recalculate layout when container resizes (fixes tiny scale on HMR)
+    const resizeObserver = new ResizeObserver(() => {
+      if (deck.isReady()) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (deck as any).layout()
+      }
+    })
+    resizeObserver.observe(container)
+
+    return () => {
+      resizeObserver.disconnect()
+      try { deck.destroy(); } catch(e) {}
+    }
   }, [isNested])
 
   // When nested in App.tsx deck, just return the section(s)
