@@ -1,4 +1,4 @@
-import Slide from './Slide'
+import Slide from './Slide';
 
 export default function TitleSlide({ isNested }: { isNested?: boolean }) {
   return (
@@ -11,16 +11,17 @@ export default function TitleSlide({ isNested }: { isNested?: boolean }) {
           The HTML Presentation Framework
         </h3>
         <p style={{ marginTop: '2em', fontSize: '0.6em', opacity: 0.6 }}>
-          Press <kbd style={{ background: '#333', padding: '0.2em 0.5em', borderRadius: '4px' }}>→</kbd> to navigate
-          &nbsp;•&nbsp;
-          <kbd style={{ background: '#333', padding: '0.2em 0.5em', borderRadius: '4px' }}>↓</kbd> for vertical slides
+          Press{' '}
+          <kbd style={{ background: '#333', padding: '0.2em 0.5em', borderRadius: '4px' }}>→</kbd>{' '}
+          to navigate &nbsp;•&nbsp;
+          <kbd style={{ background: '#333', padding: '0.2em 0.5em', borderRadius: '4px' }}>↓</kbd>{' '}
+          for vertical slides
         </p>
         <aside className="notes">
-          Welcome to Reveal.js! This presentation showcases the key features.
-          Press S to open speaker notes in a new window.
-          Use arrow keys or swipe to navigate.
+          Welcome to Reveal.js! This presentation showcases the key features. Press S to open
+          speaker notes in a new window. Use arrow keys or swipe to navigate.
         </aside>
       </section>
     </Slide>
-  )
+  );
 }
