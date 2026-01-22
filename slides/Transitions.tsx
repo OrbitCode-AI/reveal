@@ -1,3 +1,5 @@
+import { Deck } from '../lib/reveal';
+
 export function Transitions() {
   return (
     <section id="transitions">
@@ -13,4 +15,8 @@ export function Transitions() {
       </p>
     </section>
   );
+}
+
+export default function () {
+  return <Deck><Transitions /></Deck>;
 }

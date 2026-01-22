@@ -1,3 +1,5 @@
+import { Deck } from '../lib/reveal';
+
 export function Vertical() {
   return (
     <section>
@@ -38,4 +40,8 @@ export function Vertical() {
       </section>
     </section>
   );
+}
+
+export default function () {
+  return <Deck><Vertical /></Deck>;
 }

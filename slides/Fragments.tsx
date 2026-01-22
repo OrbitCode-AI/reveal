@@ -1,3 +1,5 @@
+import { Deck } from '../lib/reveal';
+
 export function Fragments() {
   return (
     <section>
@@ -36,4 +38,9 @@ export function Fragments() {
       </section>
     </section>
   );
+}
+
+
+export default function () {
+  return <Deck><Fragments /></Deck>;
 }

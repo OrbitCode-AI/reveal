@@ -1,3 +1,5 @@
+import { Deck } from '../lib/reveal';
+
 export function PointOfView() {
   return (
     <section>
@@ -11,4 +13,8 @@ export function PointOfView() {
       <p>(NOTE: Use ctrl + click in Linux.)</p>
     </section>
   );
+}
+
+export default function () {
+  return <Deck><PointOfView /></Deck>;
 }

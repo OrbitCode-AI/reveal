@@ -1,3 +1,5 @@
+import { Deck } from '../lib/reveal';
+
 export function Intro() {
   return (
     <>
@@ -20,4 +22,8 @@ export function Intro() {
       </section>
     </>
   );
+}
+
+export default function () {
+  return <Deck><Intro /></Deck>;
 }

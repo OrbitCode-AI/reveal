@@ -1,3 +1,5 @@
+import { Deck } from '../lib/reveal';
+
 export function Title() {
   return (
     <>
@@ -30,4 +32,8 @@ export function Title() {
       </section>
     </>
   );
+}
+
+export default function () {
+  return <Deck><Title /></Deck>;
 }

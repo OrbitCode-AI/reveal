@@ -1,3 +1,5 @@
+import { Deck } from '../lib/reveal';
+
 export function AutoAnimate() {
   return (
     <>
@@ -28,4 +30,9 @@ export function AutoAnimate() {
       </section>
     </>
   );
+}
+
+
+export default function () {
+  return <Deck><AutoAnimate /></Deck>;
 }

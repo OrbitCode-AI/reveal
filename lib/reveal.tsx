@@ -1,6 +1,11 @@
 import Reveal from 'reveal.js';
 import { useEffect, useRef } from 'preact/hooks';
-import type { RefObject } from 'preact';
+import type { RefObject, ComponentChildren } from 'preact';
+
+// CSS imports for standalone slide previews
+import '../css/reveal.css';
+import '../css/themes/black.css';
+import '../css/monokai.css';
 
 const CDN_BASE = 'https://cdn.jsdelivr.net/npm/reveal.js@5.1.0';
 
@@ -164,4 +169,17 @@ export function useReveal(
   }, []);
 
   return deckRef;
+}
+
+/**
+ * Standalone deck wrapper for previewing individual slides
+ */
+export function Deck({ children }: { children: ComponentChildren }) {
+  const deckRef = useReveal();
+
+  return (
+    <div className="reveal" ref={deckRef} style={{ position: 'fixed', inset: 0 }}>
+      <div className="slides">{children}</div>
+    </div>
+  );
 }

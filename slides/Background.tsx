@@ -1,3 +1,5 @@
+import { Deck } from '../lib/reveal';
+
 export function Background() {
   return (
     <>
@@ -88,4 +90,9 @@ export function Background() {
       </section>
     </>
   );
+}
+
+
+export default function () {
+  return <Deck><Background /></Deck>;
 }

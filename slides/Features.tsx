@@ -1,3 +1,5 @@
+import { Deck } from '../lib/reveal';
+
 export function Features() {
   return (
     <>
@@ -45,4 +47,9 @@ export function Features() {
       </section>
     </>
   );
+}
+
+
+export default function () {
+  return <Deck><Features /></Deck>;
 }

@@ -1,10 +1,5 @@
 import { useReveal, setTheme } from './lib/reveal';
 
-// CSS imports
-import './css/reveal.css';
-import './css/themes/black.css';
-import './css/monokai.css';
-
 // Slide components (in presentation order)
 import { Title } from './slides/Title';
 import { Vertical } from './slides/Vertical';

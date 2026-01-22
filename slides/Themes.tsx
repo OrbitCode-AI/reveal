@@ -1,3 +1,5 @@
+import { Deck, setTheme } from '../lib/reveal';
+
 interface ThemesSlideProps {
   setTheme: (theme: string) => void;
 }
@@ -24,4 +26,9 @@ export function Themes({ setTheme }: ThemesSlideProps) {
       </p>
     </section>
   );
+}
+
+
+export default function () {
+  return <Deck><Themes setTheme={setTheme} /></Deck>;
 }

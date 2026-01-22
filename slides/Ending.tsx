@@ -1,3 +1,5 @@
+import { Deck } from '../lib/reveal';
+
 export function Ending() {
   return (
     <>
@@ -140,4 +142,9 @@ export function Ending() {
       </section>
     </>
   );
+}
+
+
+export default function () {
+  return <Deck><Ending /></Deck>;
 }
