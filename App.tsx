@@ -138,11 +138,11 @@ export default function App() {
     };
   }, []);
 
-  // Theme switcher - loads theme from local files
+  // Theme switcher - loads theme from CDN
   const setTheme = (theme: string) => {
     const themeLink = document.getElementById(themeLinkId) as HTMLLinkElement;
     if (themeLink) {
-      themeLink.href = `./css/themes/${theme}.css`;
+      themeLink.href = `https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/${theme}.css`;
     }
   };
 
