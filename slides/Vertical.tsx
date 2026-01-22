@@ -1,4 +1,4 @@
-export function VerticalSlides() {
+export function Vertical() {
   return (
     <section>
       <section>

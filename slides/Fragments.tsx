@@ -1,4 +1,4 @@
-export function FragmentSlides() {
+export function Fragments() {
   return (
     <section>
       <section id="fragments">

@@ -1,4 +1,4 @@
-export function AutoAnimateSlides() {
+export function AutoAnimate() {
   return (
     <>
       <section data-auto-animate data-auto-animate-easing="cubic-bezier(0.770, 0.000, 0.175, 1.000)">

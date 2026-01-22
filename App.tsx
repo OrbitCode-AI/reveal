@@ -21,15 +21,19 @@ import './css/reveal.css';
 import './css/themes/black.css';
 import './css/monokai.css';
 
-// 3. Import slide components
-import { TitleSlide } from './slides/TitleSlide';
-import { VerticalSlides } from './slides/VerticalSlides';
-import { CodeSlides } from './slides/CodeSlides';
-import { AutoAnimateSlides } from './slides/AutoAnimateSlides';
-import { FragmentSlides } from './slides/FragmentSlides';
-import { ThemesSlide } from './slides/ThemesSlide';
-import { BackgroundSlides } from './slides/BackgroundSlides';
-import { FeatureSlides } from './slides/FeatureSlides';
+// 3. Import slide components (in presentation order)
+import { Title } from './slides/Title';
+import { Vertical } from './slides/Vertical';
+import { Intro } from './slides/Intro';
+import { Code } from './slides/Code';
+import { PointOfView } from './slides/PointOfView';
+import { AutoAnimate } from './slides/AutoAnimate';
+import { Features } from './slides/Features';
+import { Fragments } from './slides/Fragments';
+import { Transitions } from './slides/Transitions';
+import { Themes } from './slides/Themes';
+import { Background } from './slides/Background';
+import { Ending } from './slides/Ending';
 
 // 4. Add a dynamic theme link for theme switching (loads on top of base theme)
 const themeLinkId = 'reveal-theme-dynamic';
@@ -145,14 +149,18 @@ export default function App() {
   return (
     <div className="reveal" ref={deckDivRef} style={{ position: 'fixed', inset: 0 }}>
       <div className="slides">
-        <TitleSlide />
-        <VerticalSlides />
-        <FeatureSlides />
-        <CodeSlides />
-        <AutoAnimateSlides />
-        <FragmentSlides />
-        <ThemesSlide setTheme={setTheme} />
-        <BackgroundSlides />
+        <Title />
+        <Vertical />
+        <Intro />
+        <Code />
+        <PointOfView />
+        <AutoAnimate />
+        <Features />
+        <Fragments />
+        <Transitions />
+        <Themes setTheme={setTheme} />
+        <Background />
+        <Ending />
       </div>
     </div>
   );

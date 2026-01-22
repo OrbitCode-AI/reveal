@@ -1,4 +1,4 @@
-export function BackgroundSlides() {
+export function Background() {
   return (
     <>
       <section>

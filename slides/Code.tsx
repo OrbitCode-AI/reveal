@@ -1,4 +1,4 @@
-export function CodeSlides() {
+export function Code() {
   return (
     <>
       {/* Pretty Code */}

@@ -2,7 +2,7 @@ interface ThemesSlideProps {
   setTheme: (theme: string) => void;
 }
 
-export function ThemesSlide({ setTheme }: ThemesSlideProps) {
+export function Themes({ setTheme }: ThemesSlideProps) {
   return (
     <section id="themes">
       <h2>Themes</h2>

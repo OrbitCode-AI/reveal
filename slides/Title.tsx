@@ -1,4 +1,4 @@
-export function TitleSlide() {
+export function Title() {
   return (
     <>
       {/* Title */}
