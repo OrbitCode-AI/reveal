@@ -269,9 +269,9 @@ function SecondExample() {
         </section>
         <section data-auto-animate data-auto-animate-easing="cubic-bezier(0.770, 0.000, 0.175, 1.000)">
           <div className="r-stack">
-            <div data-id="box1" style={{ background: 'cyan', width: '300px', height: '300px' }}></div>
-            <div data-id="box2" style={{ background: 'magenta', width: '200px', height: '200px' }}></div>
-            <div data-id="box3" style={{ background: 'yellow', width: '100px', height: '100px' }}></div>
+            <div data-id="box1" style={{ background: 'cyan', width: '300px', height: '300px', borderRadius: '50%' }}></div>
+            <div data-id="box2" style={{ background: 'magenta', width: '200px', height: '200px', borderRadius: '50%' }}></div>
+            <div data-id="box3" style={{ background: 'yellow', width: '100px', height: '100px', borderRadius: '50%' }}></div>
           </div>
           <h2 style={{ marginTop: '20px' }}>Auto-Animate</h2>
         </section>
