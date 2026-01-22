@@ -1,4 +1,6 @@
 import Reveal from 'reveal.js';
+import { useEffect, useRef } from 'preact/hooks';
+import type { RefObject } from 'preact';
 
 const CDN_BASE = 'https://cdn.jsdelivr.net/npm/reveal.js@5.1.0';
 
@@ -127,4 +129,39 @@ export function start(
 
     requestAnimationFrame(waitForDimensions);
   });
+}
+
+export interface UseRevealOptions {
+  plugins?: string[];
+  transition?: string;
+}
+
+/**
+ * Hook to initialize Reveal.js on a container ref
+ */
+export function useReveal(
+  options: UseRevealOptions = {}
+): RefObject<HTMLDivElement> {
+  const { plugins = ['highlight', 'notes', 'zoom'], transition = 'slide' } = options;
+  const deckRef = useRef<HTMLDivElement>(null);
+  const destroyRef = useRef<(() => void) | null>(null);
+
+  useEffect(() => {
+    if (!deckRef.current) return;
+
+    loadPlugins(plugins).then(() => {
+      if (!deckRef.current || destroyRef.current) return;
+
+      start(deckRef.current, { transition }).then(({ destroy }) => {
+        destroyRef.current = destroy;
+      });
+    });
+
+    return () => {
+      destroyRef.current?.();
+      destroyRef.current = null;
+    };
+  }, []);
+
+  return deckRef;
 }

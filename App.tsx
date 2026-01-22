@@ -1,5 +1,4 @@
-import { useEffect, useRef } from 'preact/hooks';
-import { loadPlugins, start, setTheme } from './lib/reveal';
+import { useReveal, setTheme } from './lib/reveal';
 
 // CSS imports
 import './css/reveal.css';
@@ -21,25 +20,7 @@ import { Background } from './slides/Background';
 import { Ending } from './slides/Ending';
 
 export default function App() {
-  const deckRef = useRef<HTMLDivElement>(null);
-  const destroyRef = useRef<(() => void) | null>(null);
-
-  useEffect(() => {
-    if (!deckRef.current) return;
-
-    loadPlugins(['highlight', 'notes', 'zoom']).then(() => {
-      if (!deckRef.current || destroyRef.current) return;
-
-      start(deckRef.current, { transition: 'slide' }).then(({ destroy }) => {
-        destroyRef.current = destroy;
-      });
-    });
-
-    return () => {
-      destroyRef.current?.();
-      destroyRef.current = null;
-    };
-  }, []);
+  const deckRef = useReveal();
 
   return (
     <div className="reveal" ref={deckRef} style={{ position: 'fixed', inset: 0 }}>
