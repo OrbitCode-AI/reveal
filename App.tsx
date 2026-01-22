@@ -58,12 +58,13 @@ export default function App() {
       new Promise(resolve => { monokai.onload = resolve; }),
       loadScript('https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/highlight.js'),
       loadScript('https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/notes/notes.js'),
+      loadScript('https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/zoom/zoom.js'),
     ]).then(() => {
       // Prevent double initialization
       if (deckRef.current) return;
 
       // @ts-ignore - plugins are loaded globally
-      const plugins = [window.RevealHighlight, window.RevealNotes].filter(Boolean);
+      const plugins = [window.RevealHighlight, window.RevealNotes, window.RevealZoom].filter(Boolean);
 
       deckRef.current = new Reveal(deckDivRef.current!, {
         transition: 'slide',
