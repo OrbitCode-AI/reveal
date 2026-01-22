@@ -1,47 +1,49 @@
 import { useEffect, useRef, useState } from 'preact/hooks';
 import Reveal from 'reveal.js';
-// Don't import CSS at top level - we'll load it dynamically after hiding is set up
+
+// 1. Inject hiding CSS FIRST (before any other CSS loads) at module scope
+const hideStyleId = 'reveal-hide';
+if (!document.getElementById(hideStyleId)) {
+  const hideStyle = document.createElement('style');
+  hideStyle.id = hideStyleId;
+  hideStyle.textContent = `
+    .reveal { visibility: hidden !important; }
+    .reveal *, .reveal *::before, .reveal *::after {
+      transition: none !important;
+      animation: none !important;
+    }
+  `;
+  document.head.appendChild(hideStyle);
+}
+
+// 2. Now import CSS - these get injected AFTER the hiding CSS
+import './css/reveal.css';
+import './css/theme-black.css';
+import './css/monokai.css';
+
+// 3. Add a dynamic theme link for theme switching (loads on top of base theme)
+const themeLinkId = 'reveal-theme-dynamic';
+if (!document.getElementById(themeLinkId)) {
+  const themeLink = document.createElement('link');
+  themeLink.id = themeLinkId;
+  themeLink.rel = 'stylesheet';
+  // Start empty - base theme from import is used initially
+  document.head.appendChild(themeLink);
+}
 
 export default function App() {
   const deckDivRef = useRef<HTMLDivElement>(null);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const deckRef = useRef<any>(null);
+  const resizeObserverRef = useRef<ResizeObserver | null>(null);
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
     if (!deckDivRef.current) return;
     const doc = deckDivRef.current.ownerDocument;
+    const hideStyle = doc.getElementById(hideStyleId);
 
-    // 1. First, inject CSS to hide everything and disable transitions
-    const hideStyle = doc.createElement('style');
-    hideStyle.id = 'reveal-hide';
-    hideStyle.textContent = `
-      .reveal { visibility: hidden !important; }
-      .reveal *, .reveal *::before, .reveal *::after {
-        transition: none !important;
-        animation: none !important;
-      }
-    `;
-    doc.head.appendChild(hideStyle);
-
-    // 2. Now load reveal.js CSS
-    const revealCss = doc.createElement('link');
-    revealCss.rel = 'stylesheet';
-    revealCss.href = 'https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css';
-    doc.head.appendChild(revealCss);
-
-    const themeCss = doc.createElement('link');
-    themeCss.rel = 'stylesheet';
-    themeCss.id = 'theme';
-    themeCss.href = 'https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/black.css';
-    doc.head.appendChild(themeCss);
-
-    const monokai = doc.createElement('link');
-    monokai.rel = 'stylesheet';
-    monokai.href = 'https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/monokai.css';
-    doc.head.appendChild(monokai);
-
-    // 3. Load plugins
+    // Load plugins from CDN
     const loadScript = (src: string): Promise<void> => {
       return new Promise((resolve) => {
         const script = doc.createElement('script');
@@ -51,11 +53,8 @@ export default function App() {
       });
     };
 
-    // 4. Wait for CSS and plugins to load, then initialize
+    // Wait for plugins to load, then initialize
     Promise.all([
-      new Promise(resolve => { revealCss.onload = resolve; }),
-      new Promise(resolve => { themeCss.onload = resolve; }),
-      new Promise(resolve => { monokai.onload = resolve; }),
       loadScript('https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/highlight.js'),
       loadScript('https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/notes/notes.js'),
       loadScript('https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/zoom/zoom.js'),
@@ -63,27 +62,57 @@ export default function App() {
       // Prevent double initialization
       if (deckRef.current) return;
 
-      // @ts-ignore - plugins are loaded globally
-      const plugins = [window.RevealHighlight, window.RevealNotes, window.RevealZoom].filter(Boolean);
+      const container = deckDivRef.current!;
 
-      deckRef.current = new Reveal(deckDivRef.current!, {
-        transition: 'slide',
-        embedded: true,
-        plugins,
-      });
+      // Wait for container to have stable dimensions before initializing
+      const waitForDimensions = () => {
+        const rect = container.getBoundingClientRect();
+        if (rect.width > 0 && rect.height > 0) {
+          initReveal();
+        } else {
+          requestAnimationFrame(waitForDimensions);
+        }
+      };
 
-      deckRef.current.initialize().then(() => {
-        // Remove the hide style to show everything
-        hideStyle.remove();
-        setReady(true);
-      });
+      const initReveal = () => {
+        if (deckRef.current) return;
+
+        // @ts-ignore - plugins are loaded globally
+        const plugins = [window.RevealHighlight, window.RevealNotes, window.RevealZoom].filter(Boolean);
+
+        deckRef.current = new Reveal(container, {
+          transition: 'slide',
+          embedded: true,
+          plugins,
+        });
+
+        deckRef.current.initialize().then(() => {
+          // Force layout recalculation to fix any sizing issues
+          deckRef.current.layout();
+
+          // Set up ResizeObserver to handle container resize
+          resizeObserverRef.current = new ResizeObserver(() => {
+            if (deckRef.current) {
+              deckRef.current.layout();
+            }
+          });
+          resizeObserverRef.current.observe(container);
+
+          // Remove the hide style to show everything
+          if (hideStyle) hideStyle.remove();
+          setReady(true);
+        });
+      };
+
+      requestAnimationFrame(waitForDimensions);
     });
 
     return () => {
-      hideStyle.remove();
-      revealCss.remove();
-      themeCss.remove();
-      monokai.remove();
+      if (hideStyle) hideStyle.remove();
+      if (resizeObserverRef.current) {
+        resizeObserverRef.current.disconnect();
+        resizeObserverRef.current = null;
+      }
       try {
         if (deckRef.current) {
           deckRef.current.destroy();
@@ -95,16 +124,16 @@ export default function App() {
     };
   }, []);
 
-  // Theme switcher function
+  // Theme switcher - loads theme from CDN, overriding the default local theme
   const setTheme = (theme: string) => {
-    const themeLink = document.getElementById('theme') as HTMLLinkElement;
+    const themeLink = document.getElementById(themeLinkId) as HTMLLinkElement;
     if (themeLink) {
       themeLink.href = `https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/${theme}.css`;
     }
   };
 
   return (
-    <div className="reveal" ref={deckDivRef} style={{ width: '100%', height: '100vh' }}>
+    <div className="reveal" ref={deckDivRef} style={{ position: 'fixed', inset: 0 }}>
       <div className="slides">
         {/* Title */}
         <section>
