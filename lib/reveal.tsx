@@ -183,3 +183,18 @@ export function Deck({ children }: { children: ComponentChildren }) {
     </div>
   );
 }
+
+export default function App() {
+  return (
+    <Deck>
+      <section>
+        <h1>Hello, Reveal.js</h1>
+        <p>Press arrow keys to navigate</p>
+      </section>
+      <section>
+        <h2>Slide 2</h2>
+        <p>This is a minimal example</p>
+      </section>
+    </Deck>
+  );
+}
