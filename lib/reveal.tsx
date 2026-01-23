@@ -172,7 +172,7 @@ export function useReveal(
 }
 
 /**
- * Standalone deck wrapper for previewing individual slides
+ * Standalone deck wrapper
  */
 export function Deck({ children }: { children: ComponentChildren }) {
   const deckRef = useReveal();

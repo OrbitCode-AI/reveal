@@ -1,6 +1,4 @@
-import { useReveal, setTheme } from './lib/reveal';
-
-// Slide components (in presentation order)
+import { Deck, setTheme } from './lib/reveal';
 import { Title } from './slides/Title';
 import { Vertical } from './slides/Vertical';
 import { Intro } from './slides/Intro';
@@ -15,24 +13,20 @@ import { Background } from './slides/Background';
 import { Ending } from './slides/Ending';
 
 export default function App() {
-  const deckRef = useReveal();
-
   return (
-    <div className="reveal" ref={deckRef} style={{ position: 'fixed', inset: 0 }}>
-      <div className="slides">
-        <Title />
-        <Vertical />
-        <Intro />
-        <Code />
-        <PointOfView />
-        <AutoAnimate />
-        <Features />
-        <Fragments />
-        <Transitions />
-        <Themes setTheme={setTheme} />
-        <Background />
-        <Ending />
-      </div>
-    </div>
+    <Deck>
+      <Title />
+      <Vertical />
+      <Intro />
+      <Code />
+      <PointOfView />
+      <AutoAnimate />
+      <Features />
+      <Fragments />
+      <Transitions />
+      <Themes setTheme={setTheme} />
+      <Background />
+      <Ending />
+    </Deck>
   );
 }
