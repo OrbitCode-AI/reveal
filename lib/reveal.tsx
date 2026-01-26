@@ -41,7 +41,7 @@ function getOrCreateThemeLink(): HTMLLinkElement {
 /**
  * Load reveal.js plugins from CDN
  */
-export function loadPlugins(plugins: string[]): Promise<undefined[]> {
+export function loadPlugins(plugins: string[]): Promise<void[]> {
   const loadScript = (name: string): Promise<void> => {
     return new Promise(resolve => {
       const script = document.createElement('script')
