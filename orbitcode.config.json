@@ -1,4 +1,7 @@
 {
   "name": "Reveal.js Slides",
-  "darkMode": true
+  "description": "Presentation with component-per-slide architecture",
+  "icon": "📊",
+  "defaultTheme": "dark",
+  "defaultLayout": "sidebyside"
 }
