@@ -1,11 +1,12 @@
-import { Deck } from '../lib/reveal';
+import { Deck } from '../lib/reveal'
 
 export function Transitions() {
   return (
     <section id="transitions">
       <h2>Transition Styles</h2>
       <p>
-        You can select from different transitions, like:<br />
+        You can select from different transitions, like:
+        <br />
         <a href="?transition=none#/transitions">None</a> -{' '}
         <a href="?transition=fade#/transitions">Fade</a> -{' '}
         <a href="?transition=slide#/transitions">Slide</a> -{' '}
@@ -14,9 +15,13 @@ export function Transitions() {
         <a href="?transition=zoom#/transitions">Zoom</a>
       </p>
     </section>
-  );
+  )
 }
 
 export default function () {
-  return <Deck><Transitions /></Deck>;
+  return (
+    <Deck>
+      <Transitions />
+    </Deck>
+  )
 }

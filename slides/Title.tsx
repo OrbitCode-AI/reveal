@@ -1,4 +1,4 @@
-import { Deck } from '../lib/reveal';
+import { Deck } from '../lib/reveal'
 
 export function Title() {
   return (
@@ -31,9 +31,13 @@ export function Title() {
         </p>
       </section>
     </>
-  );
+  )
 }
 
 export default function () {
-  return <Deck><Title /></Deck>;
+  return (
+    <Deck>
+      <Title />
+    </Deck>
+  )
 }

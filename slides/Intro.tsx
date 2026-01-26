@@ -1,4 +1,4 @@
-import { Deck } from '../lib/reveal';
+import { Deck } from '../lib/reveal'
 
 export function Intro() {
   return (
@@ -8,7 +8,11 @@ export function Intro() {
         <h2>Slides</h2>
         <p>
           Not a coder? Not a problem. There's a fully-featured visual editor for authoring these,
-          try it out at <a href="https://slides.com" target="_blank">https://slides.com</a>.
+          try it out at{' '}
+          <a href="https://slides.com" target="_blank" rel="noreferrer">
+            https://slides.com
+          </a>
+          .
         </p>
       </section>
 
@@ -21,9 +25,13 @@ export function Intro() {
         </p>
       </section>
     </>
-  );
+  )
 }
 
 export default function () {
-  return <Deck><Intro /></Deck>;
+  return (
+    <Deck>
+      <Intro />
+    </Deck>
+  )
 }

@@ -1,4 +1,4 @@
-import { Deck } from '../lib/reveal';
+import { Deck } from '../lib/reveal'
 
 export function Vertical() {
   return (
@@ -6,7 +6,9 @@ export function Vertical() {
       <section>
         <h2>Vertical Slides</h2>
         <p>Slides can be nested inside of each other.</p>
-        <p>Use the <em>Space</em> key to navigate through all slides.</p>
+        <p>
+          Use the <em>Space</em> key to navigate through all slides.
+        </p>
         <br />
         <a href="#/2/1" className="navigate-down">
           <img
@@ -21,7 +23,10 @@ export function Vertical() {
       </section>
       <section>
         <h2>Basement Level 1</h2>
-        <p>Nested slides are useful for adding additional detail underneath a high level horizontal slide.</p>
+        <p>
+          Nested slides are useful for adding additional detail underneath a high level horizontal
+          slide.
+        </p>
       </section>
       <section>
         <h2>Basement Level 2</h2>
@@ -39,9 +44,13 @@ export function Vertical() {
         </a>
       </section>
     </section>
-  );
+  )
 }
 
 export default function () {
-  return <Deck><Vertical /></Deck>;
+  return (
+    <Deck>
+      <Vertical />
+    </Deck>
+  )
 }

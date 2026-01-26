@@ -1,7 +1,29 @@
-import { Deck, setTheme } from '../lib/reveal';
+import { Deck, setTheme } from '../lib/reveal'
 
 interface ThemesSlideProps {
-  setTheme: (theme: string) => void;
+  setTheme: (theme: string) => void
+}
+
+const themeButtonStyle = {
+  background: 'none',
+  border: 'none',
+  color: 'inherit',
+  textDecoration: 'underline',
+  cursor: 'pointer',
+  font: 'inherit',
+}
+
+const capitalize = (s: string) => s.charAt(0).toUpperCase() + s.slice(1)
+
+function ThemeButton({
+  theme,
+  label,
+}: { theme: string; label?: string }) {
+  return (
+    <button type="button" style={themeButtonStyle} onClick={() => setTheme(theme)}>
+      {label ?? capitalize(theme)}
+    </button>
+  )
 }
 
 export function Themes({ setTheme }: ThemesSlideProps) {
@@ -10,25 +32,28 @@ export function Themes({ setTheme }: ThemesSlideProps) {
       <h2>Themes</h2>
       <p>reveal.js comes with a few themes built in:</p>
       <p>
-        <a href="#" onClick={(e) => { e.preventDefault(); setTheme('black'); }}>Black (default)</a> -{' '}
-        <a href="#" onClick={(e) => { e.preventDefault(); setTheme('white'); }}>White</a> -{' '}
-        <a href="#" onClick={(e) => { e.preventDefault(); setTheme('league'); }}>League</a> -{' '}
-        <a href="#" onClick={(e) => { e.preventDefault(); setTheme('sky'); }}>Sky</a> -{' '}
-        <a href="#" onClick={(e) => { e.preventDefault(); setTheme('beige'); }}>Beige</a> -{' '}
-        <a href="#" onClick={(e) => { e.preventDefault(); setTheme('simple'); }}>Simple</a>
+        <ThemeButton theme="black" label="Black (default)" /> -{' '}
+        <ThemeButton theme="white" /> -{' '}
+        <ThemeButton theme="league" /> -{' '}
+        <ThemeButton theme="sky" /> -{' '}
+        <ThemeButton theme="beige" /> -{' '}
+        <ThemeButton theme="simple" />
       </p>
       <p>
-        <a href="#" onClick={(e) => { e.preventDefault(); setTheme('serif'); }}>Serif</a> -{' '}
-        <a href="#" onClick={(e) => { e.preventDefault(); setTheme('blood'); }}>Blood</a> -{' '}
-        <a href="#" onClick={(e) => { e.preventDefault(); setTheme('night'); }}>Night</a> -{' '}
-        <a href="#" onClick={(e) => { e.preventDefault(); setTheme('moon'); }}>Moon</a> -{' '}
-        <a href="#" onClick={(e) => { e.preventDefault(); setTheme('solarized'); }}>Solarized</a>
+        <ThemeButton theme="serif" /> -{' '}
+        <ThemeButton theme="blood" /> -{' '}
+        <ThemeButton theme="night" /> -{' '}
+        <ThemeButton theme="moon" /> -{' '}
+        <ThemeButton theme="solarized" />
       </p>
     </section>
-  );
+  )
 }
 
-
 export default function () {
-  return <Deck><Themes setTheme={setTheme} /></Deck>;
+  return (
+    <Deck>
+      <Themes setTheme={setTheme} />
+    </Deck>
+  )
 }
