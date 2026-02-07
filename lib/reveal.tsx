@@ -8,6 +8,7 @@ import '../css/themes/black.css'
 import '../css/monokai.css'
 
 const CDN_BASE = 'https://cdn.jsdelivr.net/npm/reveal.js@5.1.0'
+const DEFAULT_PLUGINS = ['highlight', 'notes', 'zoom'] as const
 
 // Inject CSS to hide reveal until ready (prevents FOUC)
 const hideStyleId = 'reveal-hide'
@@ -41,7 +42,7 @@ function getOrCreateThemeLink(): HTMLLinkElement {
 /**
  * Load reveal.js plugins from CDN
  */
-export function loadPlugins(plugins: string[]): Promise<void[]> {
+export function loadPlugins(plugins: readonly string[]): Promise<void[]> {
   const loadScript = (name: string): Promise<void> => {
     return new Promise(resolve => {
       const script = document.createElement('script')
@@ -142,7 +143,9 @@ export interface UseRevealOptions {
  * Hook to initialize Reveal.js on a container ref
  */
 export function useReveal(options: UseRevealOptions = {}): RefObject<HTMLDivElement> {
-  const { plugins = ['highlight', 'notes', 'zoom'], transition = 'slide' } = options
+  const { transition = 'slide' } = options
+  const plugins = options.plugins ?? DEFAULT_PLUGINS
+  const pluginsKey = plugins.join(',')
   const deckRef = useRef<HTMLDivElement>(null)
   const destroyRef = useRef<(() => void) | null>(null)
 
@@ -161,7 +164,7 @@ export function useReveal(options: UseRevealOptions = {}): RefObject<HTMLDivElem
       destroyRef.current?.()
       destroyRef.current = null
     }
-  }, [plugins, transition])
+  }, [pluginsKey, transition])
 
   return deckRef
 }
