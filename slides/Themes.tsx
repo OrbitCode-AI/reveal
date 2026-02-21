@@ -26,7 +26,7 @@ function ThemeButton({
   )
 }
 
-export function Themes({ setTheme }: ThemesSlideProps) {
+export function Themes({ setTheme: _setTheme }: ThemesSlideProps) {
   return (
     <section id="themes">
       <h2>Themes</h2>

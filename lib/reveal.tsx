@@ -66,7 +66,7 @@ export function setTheme(theme: string): void {
  * Get loaded plugins from window globals
  */
 function getPlugins(): unknown[] {
-  // @ts-ignore - plugins register themselves globally
+  // @ts-expect-error - plugins register themselves globally
   return [window.RevealHighlight, window.RevealNotes, window.RevealZoom].filter(Boolean)
 }
 
