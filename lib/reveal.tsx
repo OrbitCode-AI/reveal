@@ -42,12 +42,12 @@ function getOrCreateThemeLink(): HTMLLinkElement {
 /**
  * Load reveal.js plugins from CDN
  */
-export function loadPlugins(plugins: readonly string[]): Promise<void[]> {
-  const loadScript = (name: string): Promise<void> => {
+export function loadPlugins(plugins: readonly string[]): Promise<undefined[]> {
+  const loadScript = (name: string): Promise<undefined> => {
     return new Promise(resolve => {
       const script = document.createElement('script')
       script.src = `${CDN_BASE}/plugin/${name}/${name}.js`
-      script.onload = () => resolve()
+      script.onload = () => resolve(undefined)
       document.head.appendChild(script)
     })
   }
